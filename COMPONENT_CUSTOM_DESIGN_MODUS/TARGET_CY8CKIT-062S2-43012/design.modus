@@ -100,7 +100,7 @@
                     </Personality>
                 </Block>
                 <Block location="ioss[0].port[1].pin[0]">
-                    <Alias value="CYBSP_CSD_TX"/>
+                    <Alias value="CYBSP_CSD_RX"/>
                     <Personality template="mxs40pin" version="1.1">
                         <Param id="DriveModes" value="CY_GPIO_DM_ANALOG"/>
                         <Param id="initialState" value="1"/>
@@ -283,7 +283,7 @@
                 </Block>
                 <Block location="peri[0].div_16[0]">
                     <Personality template="mxs40peripheralclock" version="1.0">
-                        <Param id="intDivider" value="1000"/>
+                        <Param id="intDivider" value="720"/>
                         <Param id="fracDivider" value="0"/>
                         <Param id="startOnReset" value="true"/>
                     </Personality>
@@ -291,7 +291,7 @@
                 <Block location="peri[0].div_8[0]">
                     <Alias value="CYBSP_CSD_CLK_DIV"/>
                     <Personality template="mxs40peripheralclock" version="1.0">
-                        <Param id="intDivider" value="256"/>
+                        <Param id="intDivider" value="1"/>
                         <Param id="fracDivider" value="0"/>
                         <Param id="startOnReset" value="true"/>
                     </Personality>
@@ -299,9 +299,14 @@
                 <Block location="srss[0].clock[0]">
                     <Personality template="mxs40sysclocks" version="1.2"/>
                 </Block>
+                <Block location="srss[0].clock[0].altsystickclk[0]">
+                    <Personality template="mxs40altsystick" version="1.0">
+                        <Param id="sourceClock" value="lfclk"/>
+                    </Personality>
+                </Block>
                 <Block location="srss[0].clock[0].bakclk[0]">
                     <Personality template="mxs40bakclk" version="1.0">
-                        <Param id="sourceClock" value="wco"/>
+                        <Param id="sourceClock" value="lfclk"/>
                     </Personality>
                 </Block>
                 <Block location="srss[0].clock[0].fastclk[0]">
@@ -320,7 +325,7 @@
                 </Block>
                 <Block location="srss[0].clock[0].hfclk[0]">
                     <Personality template="mxs40hfclk" version="1.1">
-                        <Param id="sourceClockNumber" value="0"/>
+                        <Param id="sourceClockNumber" value="1"/>
                         <Param id="divider" value="1"/>
                     </Personality>
                 </Block>
@@ -372,24 +377,17 @@
                         <Param id="sourceClock" value="imo"/>
                     </Personality>
                 </Block>
-                <Block location="srss[0].clock[0].pathmux[3]">
-                    <Personality template="mxs40pathmux" version="1.0">
-                        <Param id="sourceClock" value="imo"/>
-                    </Personality>
-                </Block>
-                <Block location="srss[0].clock[0].pathmux[4]">
-                    <Personality template="mxs40pathmux" version="1.0">
-                        <Param id="sourceClock" value="imo"/>
-                    </Personality>
-                </Block>
-                <Block location="srss[0].clock[0].pathmux[5]">
-                    <Personality template="mxs40pathmux" version="1.0">
-                        <Param id="sourceClock" value="imo"/>
-                    </Personality>
-                </Block>
                 <Block location="srss[0].clock[0].periclk[0]">
                     <Personality template="mxs40periclk" version="1.0">
-                        <Param id="divider" value="1"/>
+                        <Param id="divider" value="2"/>
+                    </Personality>
+                </Block>
+                <Block location="srss[0].clock[0].pll[0]">
+                    <Personality template="mxs40pll" version="2.0">
+                        <Param id="lowFrequencyMode" value="false"/>
+                        <Param id="configuration" value="auto"/>
+                        <Param id="desiredFrequency" value="144.000"/>
+                        <Param id="optimization" value="MinPower"/>
                     </Personality>
                 </Block>
                 <Block location="srss[0].clock[0].pll[1]">
@@ -403,6 +401,12 @@
                 <Block location="srss[0].clock[0].slowclk[0]">
                     <Personality template="mxs40slowclk" version="1.0">
                         <Param id="divider" value="1"/>
+                    </Personality>
+                </Block>
+                <Block location="srss[0].clock[0].timerclk[0]">
+                    <Personality template="mxs40timerclk" version="1.0">
+                        <Param id="sourceClock" value="imo"/>
+                        <Param id="timerDivider" value="1"/>
                     </Personality>
                 </Block>
                 <Block location="srss[0].clock[0].wco[0]">
@@ -435,7 +439,7 @@
                 <Block location="usb[0]">
                     <Alias value="CYBSP_USBDEV"/>
                     <Personality template="mxs40usbfsdevice" version="1.1">
-                        <Param id="epMask" value="3"/>
+                        <Param id="epMask" value="7"/>
                         <Param id="mngMode" value="CY_USBFS_DEV_DRV_EP_MANAGEMENT_CPU"/>
                         <Param id="bufSize" value="512"/>
                         <Param id="epAccess" value="CY_USBFS_DEV_DRV_USE_8_BITS_DR"/>
@@ -509,6 +513,9 @@
                         <Port name="ioss[0].port[7].pin[2].analog[0]"/>
                     </Arm>
                     <Arm>
+                        <Port name="ioss[0].port[1].pin[0].analog[0]"/>
+                    </Arm>
+                    <Arm>
                         <Port name="ioss[0].port[8].pin[1].analog[0]"/>
                     </Arm>
                     <Arm>
@@ -516,9 +523,6 @@
                     </Arm>
                     <Arm>
                         <Port name="ioss[0].port[8].pin[2].analog[0]"/>
-                    </Arm>
-                    <Arm>
-                        <Port name="ioss[0].port[1].pin[0].analog[0]"/>
                     </Arm>
                     <Arm>
                         <Port name="ioss[0].port[8].pin[3].analog[0]"/>
@@ -538,7 +542,7 @@
                 </Mux>
             </Netlist>
         </Device>
-        <Device mpn="CYW4343WKUBG">
+        <Device mpn="CYW43012C0WKWBG">
             <BlockConfig/>
             <Netlist/>
         </Device>
