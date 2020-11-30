@@ -46,6 +46,7 @@
 #include "cy_usb_dev.h"
 #include "cycfg_usbdev.h"
 
+
 /*******************************************************************************
 * Macros
 ********************************************************************************/
@@ -53,12 +54,14 @@
 #define USB_OUT_ENDPOINT    0x02
 #define MAX_NUM_BYTES       64u
 
+
 /*******************************************************************************
 * Function Prototypes
 ********************************************************************************/
 static void usb_high_isr(void);
 static void usb_medium_isr(void);
 static void usb_low_isr(void);
+
 
 /*******************************************************************************
 * Global Variables
@@ -85,9 +88,11 @@ cy_stc_usbfs_dev_drv_context_t  usb_drvContext;
 cy_stc_usb_dev_context_t        usb_devContext;
 cy_stc_usb_dev_hid_context_t    usb_hidContext;
 
-/* Allocates static buffer for the USB data endpoint. The allocated buffer
-   is aligned on a 2 byte boundary */
+/* Allocates static buffer for the USB data endpoint. The allocated buffer is
+ * aligned on a 2 byte boundary
+ */
 CY_USB_DEV_ALLOC_ENDPOINT_BUFFER(usb_buffer, MAX_NUM_BYTES);
+
 
 /*******************************************************************************
 * Function Name: main
@@ -142,7 +147,8 @@ int main(void)
     NVIC_EnableIRQ(usb_low_interrupt_cfg.intrSrc);
 
     /* Make device appear on the bus. This function call is blocking, 
-       it waits till the device enumerates */
+     * it waits till the device enumerates 
+     */
     Cy_USB_Dev_Connect(true, CY_USB_DEV_WAIT_FOREVER, &usb_devContext);
 
     /* Turn on User LED after enumeration */
@@ -186,6 +192,7 @@ int main(void)
         }
     }
 }
+
 
 /***************************************************************************
 * Function Name: usb_high_isr
